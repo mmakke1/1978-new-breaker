@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#171714">
+  <meta name="description" content="一场关于改革、实践与发展的多线互动叙事。五个历史节点，选择你理解时代的方式。">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="1978：破局者">
+  <meta property="og:description" content="五个历史节点，三种选择。沿着改革的历史线索，作出你的判断。">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <title>1978：破局者</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="grain" aria-hidden="true"></div>
+  <header class="topbar">
+    <button id="brand" class="brand" aria-label="返回封面">1978 <span>破局者</span></button>
+    <div class="timeline" aria-label="游戏进度"><span id="progressBar"></span></div>
+    <div class="top-actions">
+      <span id="chapterLabel">序章</span>
+      <button id="archiveBtn" class="icon-btn" title="历史档案" aria-label="打开历史档案">▤</button>
+      <button id="soundBtn" class="icon-btn" title="声音" aria-label="切换声音">♪</button>
+    </div>
+  </header>
+
+  <main id="app" aria-live="polite"></main>
+
+  <aside id="archive" class="drawer" aria-hidden="true">
+    <div class="drawer-head"><div><small>FIELD NOTES</small><h2>历史档案</h2></div><button id="closeArchive" class="icon-btn" aria-label="关闭">×</button></div>
+    <div class="drawer-body">
+      <p class="lead">游戏中的选项是供讨论的假设方案；每次选择后都会单独展示真实发生的历史进程。路线分数只表示你的观察侧重点，不是对历史功过的量化评分。</p>
+      <section><b>01 / 恢复高考 · 1977</b><p>拨乱反正 · 尊重知识和人才</p><a href="https://www.moe.gov.cn/jyb_xwfb/xw_zt/moe_357/s3581/moe_2669/moe_2921/tnull_51274.html" target="_blank" rel="noreferrer">教育部《中国教育报：我向小平建议恢复高考》</a></section>
+      <section><b>02 / 小岗村 · 1978</b><p>群众首创 · 家庭联产承包责任制</p><a href="https://sfj.gz.gov.cn/ztlm/dsxx/content/post_7253095.html" target="_blank" rel="noreferrer">广州市司法局《百年瞬间丨小岗村实行农业“大包干”》</a></section>
+      <section><b>03 / 深圳经济特区 · 1980</b><p>经济特区 · 对外开放</p><a href="https://www.szdag.gov.cn/dawh/tqssn/content/post_98517.html" target="_blank" rel="noreferrer">深圳市档案馆《深圳的建制沿革》</a></section>
+      <section><b>04 / 城市经济体制改革 · 1984</b><p>增强企业活力 · 有计划的商品经济</p><a href="https://www.12371.cn/2021/11/01/ARTI1635742149422759.shtml" target="_blank" rel="noreferrer">共产党员网《1984〈中共中央关于经济体制改革的决定〉》</a></section>
+      <section><b>05 / 南方谈话 · 1992</b><p>三个有利于 · 社会主义市场经济</p><a href="https://www.12371.cn/2021/12/08/ARTI1638969388582281.shtml" target="_blank" rel="noreferrer">共产党员网《1992，邓小平南方谈话》</a></section>
+      <section><b>理论坐标 / 三个有利于</b><p>是否有利于发展社会主义社会生产力、增强社会主义国家综合国力、提高人民生活水平。</p></section>
+      <section><b>理论坐标 / 社会主义本质</b><p>解放和发展生产力，消灭剥削、消除两极分化，最终达到共同富裕。</p></section>
+      <div class="source-note">页面历史图片来自用户提供的参考资料包，来源名称显示在各章图片下方。外部史料链接用于课堂学习与核查。</div>
+    </div>
+  </aside>
+  <div id="scrim" class="scrim"></div>
+
+  <template id="coverTemplate">
+    <section class="screen cover-screen">
+      <canvas class="scene-canvas" data-scene="cover"></canvas>
+      <div class="cover-copy">
+        <div class="case-label">绝密 · 思想解放档案 / 001</div>
+        <h1><span>1978</span>破局者</h1>
+        <p id="typewriter" class="typewriter"></p>
+        <button class="primary-btn" data-action="start"><span>点击进入历史</span><i>→</i></button>
+      </div>
+      <div class="cover-foot"><span>一场关于选择、实践与发展的互动叙事</span><span>建议佩戴耳机 · 约 8 分钟</span></div>
+    </section>
+  </template>
+
+  <template id="chapterTemplate">
+    <section class="screen chapter-screen">
+      <div class="visual-pane"><img class="scene-photo" alt=""><div class="photo-filter"></div><div class="visual-caption"></div><div class="year-mark"></div></div>
+      <article class="story-pane">
+        <div class="chapter-kicker"></div><h2></h2><p class="branch-text"></p><p class="story-text"></p>
+        <div class="status-panel" aria-label="路线取向"></div>
+        <div class="decision-label"><span>你的决定</span><i></i></div>
+        <div class="choices"></div>
+        <p class="footnote"></p>
+      </article>
+    </section>
+  </template>
+
+  <template id="resultTemplate">
+    <section class="screen result-screen">
+      <div class="result-photo" aria-hidden="true"></div>
+      <div class="result-copy"><div class="result-index"></div><div class="stamp"></div><h2></h2><p class="choice-feedback"></p><div class="consequence"></div><div class="history-card"><small>历史实际</small><p></p><a target="_blank" rel="noreferrer"></a></div><button class="primary-btn"><span></span><i>→</i></button></div>
+    </section>
+  </template>
+
+  <template id="endingTemplate">
+    <section class="screen ending-screen">
+      <canvas class="scene-canvas" data-scene="ending"></canvas>
+      <div class="ending-copy"><div class="case-label">FINAL ARCHIVE / 1992</div><p class="eyebrow">五个节点 · 你的路线已归档</p><h2 id="endingTitle"></h2><p id="endingText" class="ending-text"></p><div class="route-summary"></div><div class="achievements"></div><div class="ending-actions"><button class="primary-btn" data-action="name"><span>生成我的见证卡</span><i>→</i></button><button class="secondary-btn" data-action="share">分享我的路线</button><button class="secondary-btn" data-action="restart">重新体验</button></div></div>
+    </section>
+  </template>
+
+  <dialog id="nameDialog">
+    <form method="dialog"><button class="dialog-close" value="cancel" aria-label="关闭">×</button><small>PERSONAL ARCHIVE</small><h2>留下你的名字</h2><p>它将印在专属见证卡上，只保存在你的设备中。</p><label>见证者姓名<input id="playerName" maxlength="12" placeholder="请输入姓名" autocomplete="name"></label><button id="makePoster" class="primary-btn" value="default"><span>生成见证卡</span><i>→</i></button></form>
+  </dialog>
+  <dialog id="posterDialog"><div class="poster-wrap"><button class="dialog-close" data-action="close-poster" aria-label="关闭">×</button><canvas id="poster" width="900" height="1200"></canvas><div class="poster-actions"><button class="secondary-btn" data-action="restart">重新开始</button><button class="primary-btn" data-action="download"><span>保存海报</span><i>↓</i></button></div></div></dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
